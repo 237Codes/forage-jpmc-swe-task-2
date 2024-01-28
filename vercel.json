@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "datafeed/server3.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "src",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "datafeed/server3.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "src/$1"
+    }
+  ],
+  "env": {
+    "REACT_APP_API_URL": "/api"
+  }
+}

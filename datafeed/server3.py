@@ -31,10 +31,20 @@ import json
 import re
 import threading
 
+
+
 # from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 import http.server
 from socketserver import ThreadingMixIn
 
+import os
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return 'Hello from Python server!'
 ################################################################################
 #
 # Config
@@ -340,3 +350,8 @@ if __name__ == '__main__':
         print("No data found, generating...")
         generate_csv()
     run(App())
+
+#Server logic to configure port
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
